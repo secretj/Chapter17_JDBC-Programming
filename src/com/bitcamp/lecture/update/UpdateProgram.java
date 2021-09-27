@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import com.bitcamp.lecture.comm.Notice;
 
-public class DeleteProgram {
+public class UpdateProgram {
 	static final String URL ="jdbc:mysql://221.148.138.87:3306/lecture";
 	static final String ID ="bitcamp";
 	static final String PW ="1234";
@@ -19,7 +19,10 @@ public class DeleteProgram {
 		PreparedStatement preStmt =null;
 		//UI쪽 인터페이스를 통해서 CRUD 관련 데이터를 전달 받는다.
 		Notice notice = new Notice();
-		notice.setId(17);
+		
+		notice.setId(2);
+		notice.setTitle("퇴실 3분전");
+		notice.setWriterId("지녕이");
 		
 		
 		
@@ -32,10 +35,11 @@ public class DeleteProgram {
 			System.out.println("Successfully Connection!");
 			/* 쿼리 실행
 			 */
-			String sql = "DELETE FROM notice WHERE ID = ?";
+			String sql = "UPDATE notice SET TITLE = ?,WRITER_ID = ?WHERE ID = ?";
 			preStmt = con.prepareStatement(sql);
-			preStmt.setInt(1,notice.getId());		//DB에서는 인덱스가 1부터 시작한다.
-					
+			preStmt.setString(1,notice.getTitle());		//DB에서는 인덱스가 1부터 시작한다.
+			preStmt.setString(2,notice.getWriterId());		
+			preStmt.setInt(3,notice.getId());		
 	
 			
 			//stmt.executeQuery(sql);  select일때만
